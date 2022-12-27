@@ -5,8 +5,8 @@ plugins {
     id("com.gradle.plugin-publish") version "1.1.0"
 }
 
-group = "io.github.scottpierce.kotlin-node-release"
-version = "0.0.1"
+group = "io.github.scottpierce.kotlin-node-slim"
+version = "0.0.2"
 
 repositories {
     mavenCentral()

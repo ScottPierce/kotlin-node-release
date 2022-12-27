@@ -1,1 +1,1 @@
-rootProject.name = "kotlin-node-release"
+rootProject.name = "kotlin-node-slim"
