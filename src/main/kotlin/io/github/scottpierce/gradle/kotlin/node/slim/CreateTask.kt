@@ -10,7 +10,7 @@ import java.util.*
 private const val NODE_PROJECT_COMPILED_FILES_DIR = "/compileSync/main/productionExecutable/kotlin"
 private const val NODE_JS_PRODUCTION_COMPILE_TASK = "compileProductionExecutableKotlinJs"
 
-internal fun createCompileDistributionTask(target: Project, extension: KotlinNodeJsDistributionPluginExtension) {
+internal fun createCompileDistributionTask(target: Project, extension: KotlinNodeSlimPluginExtension) {
     val compileOutputDir = File(target.buildDir, NODE_PROJECT_COMPILED_FILES_DIR)
     val mainScript = "kotlin/${target.rootProject.name}-${target.name}.js"
 
