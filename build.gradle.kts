@@ -34,7 +34,7 @@ gradlePlugin {
             description = "Creates a slim nodejs project of only the dependencies used by a Kotlin Node JS Gradle " +
                     "module so that only the used dependencies can be packaged. This helps to greatly reduce the " +
                     "released file size, especially in projects with multiple javascript projects."
-            tags.set(listOf("kotlin", "js", "node", "release"))
+            tags.set(listOf("kotlin", "js", "kotlin-js", "kotlin-node", "node", "release", "slim", "slim release"))
         }
     }
 }

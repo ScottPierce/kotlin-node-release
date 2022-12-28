@@ -7,8 +7,11 @@ import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 import java.util.*
 
+private const val NODE_PROJECT_COMPILED_FILES_DIR = "/compileSync/main/productionExecutable/kotlin"
+private const val NODE_JS_PRODUCTION_COMPILE_TASK = "compileProductionExecutableKotlinJs"
+
 internal fun createCompileDistributionTask(target: Project, extension: KotlinNodeJsDistributionPluginExtension) {
-    val compileOutputDir = File(target.buildDir, "/compileSync/main/productionExecutable/kotlin")
+    val compileOutputDir = File(target.buildDir, NODE_PROJECT_COMPILED_FILES_DIR)
     val mainScript = "kotlin/${target.rootProject.name}-${target.name}.js"
 
     target.tasks.create("compileNodeJsSlimDistribution") { task ->
@@ -16,7 +19,7 @@ internal fun createCompileDistributionTask(target: Project, extension: KotlinNod
 
         target.checkForMultiplatformPlugin()
 
-        val prodCompileTask = target.tasks.getByName("compileProductionExecutableKotlinJs")
+        val prodCompileTask = target.tasks.getByName(NODE_JS_PRODUCTION_COMPILE_TASK)
             ?: throw IllegalStateException(
                 """
                 |Failed to find the task 'compileProductionExecutableKotlinJs'. This can happen for a few reasons:
