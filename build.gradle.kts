@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "io.github.scottpierce.kotlin-node-slim"
-version = "0.0.3"
+version = "0.0.4"
 
 repositories {
     mavenCentral()
@@ -20,7 +20,17 @@ dependencies {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions {
+        // Ensure compatibility with old Gradle versions running Kotlin 1.4.
+        // When changing this value see kotlinCompatibility.kt and delete unnecessary backports.
+        apiVersion = "1.4"
+    }
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(11))
+    }
 }
 
 gradlePlugin {
@@ -31,9 +41,12 @@ gradlePlugin {
             id = "io.github.scottpierce.kotlin-node-slim"
             implementationClass = "io.github.scottpierce.gradle.kotlin.node.slim.KotlinNodeSlimPlugin"
             displayName = "Kotlin Node Slim"
-            description = "Creates a slim nodejs project of only the dependencies used by a Kotlin Node JS Gradle " +
-                    "module so that only the used dependencies can be packaged. This helps to greatly reduce the " +
-                    "released file size, especially in projects with multiple javascript projects."
+            description = "When releasing a module in Kotlin JS, all dependencies from all other js projects are " +
+                    "included in the node_modules directory. This adds significant bloat when trying to package a " +
+                    "Kotlin nodejs application in a docker container, or ship it as a standalone application.\n" +
+                    "\n" +
+                    "This plugin iterates over the dependencies of the module recursively, collects all referenced " +
+                    "npm dependencies, and then generates a small npm project."
             tags.set(listOf("kotlin", "js", "kotlin-js", "kotlin-node", "node", "release", "slim", "slim release"))
         }
     }
