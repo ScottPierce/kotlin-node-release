@@ -8,6 +8,9 @@ ship it as a standalone application.
 This plugin iterates over the dependencies of the module recursively, collects all referenced npm dependencies,
 and then generates a small npm project.
 
+* 0.0.4 - Kotlin 1.7.x
+* 0.0.5 - Kotlin 1.8.x
+
 ## Gradle Project Setup
 Here is an example of how to use this with Kotlin Script Gradle:
 ```Kotlin

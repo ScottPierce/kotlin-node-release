@@ -7,7 +7,7 @@ import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 import java.util.*
 
-private const val NODE_PROJECT_COMPILED_FILES_DIR = "/compileSync/main/productionExecutable/kotlin"
+private const val NODE_PROJECT_COMPILED_FILES_DIR = "/compileSync/js/main/productionExecutable/kotlin"
 private const val NODE_JS_PRODUCTION_COMPILE_TASK = "compileProductionExecutableKotlinJs"
 
 internal fun createCompileDistributionTask(target: Project, extension: KotlinNodeSlimPluginExtension) {
@@ -22,7 +22,7 @@ internal fun createCompileDistributionTask(target: Project, extension: KotlinNod
         val prodCompileTask = target.tasks.getByName(NODE_JS_PRODUCTION_COMPILE_TASK)
             ?: throw IllegalStateException(
                 """
-                |Failed to find the task 'compileProductionExecutableKotlinJs'. This can happen for a few reasons:
+                |Failed to find the task '$NODE_JS_PRODUCTION_COMPILE_TASK'. This can happen for a few reasons:
                 |
                 |1. You don't have IR compilation enabled. The ${KotlinNodeSlimPlugin.NAME} only works with 
                 |       IR compilations. You can enable the IR JS compiler by setting `kotlin.js.compiler=ir` in your 
@@ -81,12 +81,12 @@ internal fun createCompileDistributionTask(target: Project, extension: KotlinNod
             val kotlinOutputDir = File(outputDir, "kotlin")
             kotlinOutputDir.mkdirs()
 
-            compileOutputDir
-                .listFiles()!!
-                .forEach {
-                    val toFile = File(kotlinOutputDir, it.name)
-                    Files.copy(it.toPath(), toFile.toPath(), StandardCopyOption.REPLACE_EXISTING)
-                }
+            val compiledFiles = compileOutputDir.listFiles()
+            check(compiledFiles != null && compiledFiles.isNotEmpty()) { "Compiled files weren't found." }
+            compiledFiles.forEach {
+                val toFile = File(kotlinOutputDir, it.name)
+                Files.copy(it.toPath(), toFile.toPath(), StandardCopyOption.REPLACE_EXISTING)
+            }
 
             val yarnLockFile = File(target.rootProject.buildDir, "js/yarn.lock").toPath()
             Files.copy(yarnLockFile, File(outputDir, "yarn.lock").toPath(), StandardCopyOption.REPLACE_EXISTING)
