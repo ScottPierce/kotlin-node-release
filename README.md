@@ -10,6 +10,7 @@ and then generates a small npm project.
 
 * 0.0.4 - Kotlin 1.7.x
 * 0.0.5 - Kotlin 1.8.x
+* 0.0.6 - Kotlin 1.8.20+
 
 ## Gradle Project Setup
 Here is an example of how to use this with Kotlin Script Gradle:

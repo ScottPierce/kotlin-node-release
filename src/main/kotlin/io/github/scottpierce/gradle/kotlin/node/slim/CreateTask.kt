@@ -9,6 +9,7 @@ import java.util.*
 
 private const val NODE_PROJECT_COMPILED_FILES_DIR = "/compileSync/js/main/productionExecutable/kotlin"
 private const val NODE_JS_PRODUCTION_COMPILE_TASK = "compileProductionExecutableKotlinJs"
+private const val KOTLIN_NPM_INSTALL_TASK = "kotlinNpmInstall"
 
 internal fun createCompileDistributionTask(target: Project, extension: KotlinNodeSlimPluginExtension) {
     val compileOutputDir = File(target.buildDir, NODE_PROJECT_COMPILED_FILES_DIR)
@@ -42,8 +43,9 @@ internal fun createCompileDistributionTask(target: Project, extension: KotlinNod
                 |```
                 """.trimMargin()
             )
+        val npmInstallTask = target.rootProject.task(KOTLIN_NPM_INSTALL_TASK)
 
-        task.dependsOn(prodCompileTask)
+        task.dependsOn(prodCompileTask, npmInstallTask)
 
         task.doLast {
             val dependencies = mutableSetOf<ResolvedNpmDep>()
