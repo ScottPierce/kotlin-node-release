@@ -1,12 +1,12 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.7.21"
+    kotlin("jvm") version "1.8.20"
     id("com.gradle.plugin-publish") version "1.1.0"
 }
 
 group = "io.github.scottpierce.kotlin-node-slim"
-version = "0.0.6"
+version = "0.0.7"
 
 repositories {
     mavenCentral()
@@ -14,7 +14,7 @@ repositories {
 
 dependencies {
     compileOnly(gradleApi())
-    compileOnly("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.21")
+    compileOnly("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.20")
 
     testImplementation(kotlin("test"))
 }

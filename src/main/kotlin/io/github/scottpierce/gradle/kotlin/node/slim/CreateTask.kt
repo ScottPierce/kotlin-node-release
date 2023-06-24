@@ -43,7 +43,7 @@ internal fun createCompileDistributionTask(target: Project, extension: KotlinNod
                 |```
                 """.trimMargin()
             )
-        val npmInstallTask = target.rootProject.task(KOTLIN_NPM_INSTALL_TASK)
+        val npmInstallTask = target.rootProject.tasks.getByName(KOTLIN_NPM_INSTALL_TASK)
 
         task.dependsOn(prodCompileTask, npmInstallTask)
 
